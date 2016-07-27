@@ -1,0 +1,32 @@
+		</div>
+		<script type="text/javascript">
+			require(['bootstrap']);
+			{if $_W['uid']}
+				function checknotice() {
+					$.post("{php echo url('utility/notice')}", {}, function(data){
+						var data = $.parseJSON(data);
+						$('#notice-container').html(data.notices);
+						$('#notice-total').html(data.total);
+						if(data.total > 0) {
+							$('#notice-total').css('background', '#ff9900');
+						} else {
+							$('#notice-total').css('background', '');
+						}
+						setTimeout(checknotice, 60000);
+					});
+				}
+				checknotice();
+			{/if}
+		</script>
+		<div class="container-fluid footer" role="footer">
+			<div class="page-header"></div>
+			<span class="pull-left">
+				<p>{if empty($_W['setting']['copyright']['footerleft'])}Powered by <a href="http://#"><b>域顺</b></a> v1.0 &copy; 2016 <a href="http://#">www.yushunbox.com</a>{else}{$_W['setting']['copyright']['footerleft']}{/if}{if !empty($_W['setting']['copyright']['statcode'])}{$_W['setting']['copyright']['statcode']}{/if}</p>
+			</span>
+			<span class="pull-right">
+				<p>{if empty($_W['setting']['copyright']['footerright'])}<a href="http://#">域顺集团</a>&nbsp;&nbsp;<a href="http://#">域顺金融</a>&nbsp;&nbsp;<a href="http://#">联系客服</a>{else}{$_W['setting']['copyright']['footerright']}{/if}</p>
+			</span>
+		</div>
+		{if !empty($_W['setting']['copyright']['statcode'])}{$_W['setting']['copyright']['statcode']}{/if}
+	</body>
+</html>
